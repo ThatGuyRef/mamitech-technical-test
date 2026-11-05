@@ -20,6 +20,9 @@
 # production
 /build
 
+# brief tes (hanya lokal, tidak ikut repo publik)
+/docs/
+
 # misc
 .DS_Store
 *.pem
