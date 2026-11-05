@@ -28,10 +28,8 @@ export const hero = {
   eyebrow: "#EnaknyaNgekos",
   title: "Mau cari kos?",
   titleItalic: "Langsung sewa di Mamikos.",
-  body: "Dapatkan beragam potongan serta cashback dengan berbagai pilihan metode pembayaran.",
-  searchTitle: "Cari kos",
-  searchBody: "Temukan pilihan kost terlengkap di kota tujuan.",
-  searchCta: "Cari",
+  body: "Temukan pilihan kost terlengkap di kota tujuan. Dapatkan beragam potongan serta cashback dengan berbagai pilihan metode pembayaran.",
+  cta: { label: "Cari kos", href: "#kos" },
   image: "/images/hero.jpg",
 };
 
@@ -58,7 +56,8 @@ export const kosSection = {
   eyebrow: "Paling direkomendasikan",
   title: "Pilihan kos",
   titleItalic: "di Jakarta.",
-  searchTitle: "Hasil pencarian",
+  searchRequired: "Isi kolom pencarian terlebih dahulu.",
+  searchRequiredHint: "Ketik nama kos, area, atau kota, lalu cari lagi.",
   searchPlaceholder: "Masukan nama lokasi/area/alamat",
   typeFilters: [
     { label: "Semua Tipe Kos", value: "" },

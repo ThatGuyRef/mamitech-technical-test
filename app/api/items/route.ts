@@ -4,9 +4,18 @@ import { KOS, KOS_CITIES, KOS_TYPES, type KosCity, type KosType } from "@/data/k
 // at build time, which Cache Components would otherwise do for a pure handler.
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
-  const q = params.get("q")?.trim().toLowerCase() ?? "";
+  const rawQ = params.get("q");
+  const q = rawQ?.trim().toLowerCase() ?? "";
   const type = params.get("type") ?? "";
   const city = params.get("city") ?? "";
+
+  // No `q` lists everything. A `q` sent blank means an empty search was submitted.
+  if (rawQ !== null && !q) {
+    return Response.json(
+      { error: "Kolom pencarian wajib diisi." },
+      { status: 400 },
+    );
+  }
 
   if (type && !KOS_TYPES.includes(type as KosType)) {
     return Response.json(

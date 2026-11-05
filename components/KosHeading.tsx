@@ -1,33 +1,24 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { ChapterHeading } from "@/components/Chapter";
+import { ChapterHeading, ChapterLabel } from "@/components/Chapter";
 import { kosSection } from "@/content/home";
-import { findKosLocation } from "@/data/kos";
+import { formatKosPlace } from "@/data/kos";
 
-const MAX_KEYWORD_LENGTH = 40;
-
-/** The section title follows the `q` keyword in the URL. */
+/** The section title follows the `q` keyword and disappears on a blank search. */
 export function KosHeading() {
-  const keyword = useSearchParams().get("q")?.trim() ?? "";
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("q")?.trim() ?? "";
 
-  if (!keyword) return <ChapterHeading {...kosSection} />;
-
-  const location = findKosLocation(keyword);
-  if (location) {
-    return <ChapterHeading {...kosSection} titleItalic={`di ${location}.`} />;
+  if (searchParams.has("q") && !keyword) {
+    return <ChapterLabel number={kosSection.number} label={kosSection.label} />;
   }
-
-  const shown =
-    keyword.length > MAX_KEYWORD_LENGTH
-      ? `${keyword.slice(0, MAX_KEYWORD_LENGTH)}…`
-      : keyword;
 
   return (
     <ChapterHeading
       {...kosSection}
-      title={kosSection.searchTitle}
-      titleItalic={`“${shown}”`}
+      titleItalic={keyword ? `di ${formatKosPlace(keyword)}.` : kosSection.titleItalic}
+      singleLineItalic
     />
   );
 }

@@ -1,6 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { GET } from "@/app/api/items/route";
-import { findKosLocation, KOS, type Kos } from "@/data/kos";
+import { findKosLocation, formatKosPlace, KOS, type Kos } from "@/data/kos";
+
+describe("formatKosPlace", () => {
+  it.each([
+    ["JAKARTA utara", "Jakarta Utara"],
+    ["bandung", "Bandung"],
+    ["  kost seven melody ", "Kost Seven Melody"],
+    ["UGM", "UGM"],
+    ["123 abc", "123 Abc"],
+  ])("writes %j as %j", (keyword, expected) => {
+    expect(formatKosPlace(keyword)).toBe(expected);
+  });
+});
 
 describe("findKosLocation", () => {
   it.each([
@@ -56,10 +68,19 @@ describe("GET /api/items", () => {
     expect(body).toEqual({ items: [], total: 0 });
   });
 
-  it("treats empty parameters as no filter", async () => {
-    const { body } = await get("?q=&type=&city=");
+  it("treats empty type and city as no filter", async () => {
+    const { body } = await get("?type=&city=");
     expect(body.total).toBe(KOS.length);
   });
+
+  it.each(["?q=", "?q=%20%20", "?q=&type=putra"])(
+    "rejects a blank search for %s",
+    async (query) => {
+      const { status, body } = await get(query);
+      expect(status).toBe(400);
+      expect(body.error).toBe("Kolom pencarian wajib diisi.");
+    },
+  );
 
   it("rejects an unknown type", async () => {
     const { status, body } = await get("?type=vip");

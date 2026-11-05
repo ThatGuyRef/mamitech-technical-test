@@ -235,3 +235,11 @@ export function findKosLocation(keyword: string): string | null {
     locations.find((location) => location.toLowerCase() === normalized) ?? null
   );
 }
+
+/** Writes a search keyword as a name: known places exactly, others with capital initials. */
+export function formatKosPlace(keyword: string): string {
+  return (
+    findKosLocation(keyword) ??
+    keyword.trim().replace(/(^|\s)(\p{L})/gu, (_, gap, letter) => gap + letter.toUpperCase())
+  );
+}

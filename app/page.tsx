@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { Chapter, ChapterHeading } from "@/components/Chapter";
 import { Hero } from "@/components/Hero";
-import { KosHeading } from "@/components/KosHeading";
+import { KosGridSkeleton } from "@/components/KosCard";
+import { KosSection } from "@/components/KosSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
@@ -35,15 +36,20 @@ export default function Home() {
         </Chapter>
 
         <section id={kosSection.id} className="px-[22px] py-24 md:px-[6vw] md:py-32">
-          {/* Reading the URL needs a boundary; the default title shows until it resolves. */}
-          <Suspense fallback={<ChapterHeading {...kosSection} />}>
-            <KosHeading />
+          {/* Reading the URL needs a boundary; this fallback shows until it resolves. */}
+          <Suspense
+            fallback={
+              <>
+                <ChapterHeading {...kosSection} />
+                <div className="mt-28">
+                  <KosGridSkeleton />
+                </div>
+              </>
+            }
+          >
+            <KosSection />
           </Suspense>
-          {/* The live list and its states arrive with KosSection. */}
-          <div className="mt-14 grid min-h-64 place-items-center border border-dashed border-line text-sm text-olive">
-            Daftar kos dari API
-          </div>
-          <p className="mt-6 text-xs text-olive">{kosSection.note}</p>
+          <p className="mt-10 text-xs text-olive">{kosSection.note}</p>
         </section>
 
         <Chapter {...survei} align="right" />

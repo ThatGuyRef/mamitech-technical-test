@@ -9,21 +9,42 @@ type HeadingProps = {
   titleItalic: string;
 };
 
+export function ChapterLabel({
+  number,
+  label,
+}: Pick<HeadingProps, "number" | "label">) {
+  return (
+    <>
+      <p className="display text-[clamp(36px,3.6vw,52px)] opacity-80">{number}</p>
+      <p className="mt-1 text-[9px] uppercase tracking-[0.22em] opacity-80">{label}</p>
+    </>
+  );
+}
+
 export function ChapterHeading({
   number,
   label,
   eyebrow,
   title,
   titleItalic,
-}: HeadingProps) {
+  singleLineItalic = false,
+}: HeadingProps & { singleLineItalic?: boolean }) {
   return (
     <>
-      <p className="display text-[clamp(36px,3.6vw,52px)] opacity-80">{number}</p>
-      <p className="mt-1 text-[9px] uppercase tracking-[0.22em] opacity-80">{label}</p>
+      <ChapterLabel number={number} label={label} />
       <p className="eyebrow mt-9 inline-block border-b border-current/40 pb-3">{eyebrow}</p>
-      <h2 className="display mt-7 text-[clamp(46px,7vw,112px)] wrap-anywhere">
+      <h2 className="display mt-7 text-[clamp(46px,7vw,112px)]">
         {title}
-        <em className="block">{titleItalic}</em>
+        {/* The padding keeps descenders and italic overhang from being clipped. */}
+        <em
+          className={
+            singleLineItalic
+              ? "-mb-[0.2em] block truncate pr-[0.1em] pb-[0.2em]"
+              : "block"
+          }
+        >
+          {titleItalic}
+        </em>
       </h2>
     </>
   );
