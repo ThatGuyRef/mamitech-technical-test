@@ -128,6 +128,34 @@ export const info = {
   title: "Dapatkan info",
   titleItalic: "kost murah.",
   image: "/images/form.jpg",
+  form: {
+    title: "Form info kos",
+    steps: ["Kamu", "Kontak", "Preferensi"],
+    labels: {
+      name: "Nama",
+      email: "Email",
+      phone: "Nomor telepon",
+      contactMethod: "Metode kontak",
+      city: "Kota",
+      type: "Tipe kos",
+      message: "Pesan (opsional)",
+    },
+    choose: "Pilih salah satu",
+    close: "Tutup",
+    contactMethods: [
+      { label: "Telepon", value: "telepon" },
+      { label: "Email", value: "email" },
+    ],
+    next: "Lanjut",
+    back: "Kembali",
+    submit: "Kirim",
+    submitting: "Mengirim...",
+    retry: "Kirim lagi",
+    again: "Isi lagi",
+    successTitle: "Berhasil.",
+    successFallback: "Pendaftaranmu sudah kami terima.",
+    networkError: "Tidak bisa terhubung ke server. Isianmu tidak hilang, coba kirim lagi.",
+  },
 };
 
 export const footer = {

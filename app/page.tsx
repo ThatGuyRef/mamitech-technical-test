@@ -5,9 +5,9 @@ import { KosGridSkeleton } from "@/components/KosCard";
 import { KosSection } from "@/components/KosSection";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SubscribeForm } from "@/components/SubscribeForm";
 import {
   dikelola,
-  disclaimer,
   info,
   kosSection,
   kota,
@@ -105,17 +105,7 @@ export default function Home() {
           </div>
         </section>
 
-        <Chapter
-          {...info}
-          aside={
-            <div className="bg-night/90 p-8 text-snow">
-              {/* The multi-step form replaces this block. */}
-              <p className="eyebrow border-b border-white/25 pb-3">Form info kos</p>
-              <p className="mt-6 min-h-40 text-sm text-white/70">Form multi-step</p>
-              <p className="mt-6 text-[11px] leading-relaxed text-white/70">{disclaimer}</p>
-            </div>
-          }
-        />
+        <Chapter {...info} aside={<SubscribeForm />} />
       </main>
       <SiteFooter />
     </>
