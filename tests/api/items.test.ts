@@ -1,6 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { GET } from "@/app/api/items/route";
-import { KOS, type Kos } from "@/data/kos";
+import { findKosLocation, KOS, type Kos } from "@/data/kos";
+
+describe("findKosLocation", () => {
+  it.each([
+    ["gambir", "Gambir"],
+    ["  JAKARTA utara ", "Jakarta Utara"],
+    ["jakarta", "Jakarta"],
+    ["grogol petamburan", "Grogol Petamburan"],
+  ])("turns %j into its proper name", (keyword, expected) => {
+    expect(findKosLocation(keyword)).toBe(expected);
+  });
+
+  it.each(["dahlia", "bandung", "gam", ""])("returns null for %j", (keyword) => {
+    expect(findKosLocation(keyword)).toBeNull();
+  });
+});
 
 async function get(query = "") {
   const response = await GET(new Request(`http://test/api/items${query}`));

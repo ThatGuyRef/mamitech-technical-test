@@ -226,3 +226,12 @@ export const KOS: Kos[] = [
     image: "/images/kos/kamar-10.jpg",
   },
 ];
+
+/** Returns the properly written place name when a keyword is exactly a known location. */
+export function findKosLocation(keyword: string): string | null {
+  const normalized = keyword.trim().toLowerCase();
+  const locations = ["Jakarta", ...KOS_CITIES, ...KOS.map((kos) => kos.area)];
+  return (
+    locations.find((location) => location.toLowerCase() === normalized) ?? null
+  );
+}

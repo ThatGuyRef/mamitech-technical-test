@@ -1,69 +1,117 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import { Chapter, ChapterHeading } from "@/components/Chapter";
+import { Hero } from "@/components/Hero";
+import { KosHeading } from "@/components/KosHeading";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import {
+  dikelola,
+  disclaimer,
+  info,
+  kosSection,
+  kota,
+  survei,
+  tentang,
+} from "@/content/home";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <SiteHeader />
+      <main>
+        <Hero />
+
+        <Chapter {...tentang}>
+          <dl className="mt-9 flex flex-wrap justify-between gap-x-14 gap-y-6 border-t border-white/30 pt-6">
+            {tentang.stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col-reverse gap-2">
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-white/80">
+                  {stat.label}
+                </dt>
+                <dd className="display text-[clamp(40px,4.4vw,64px)]">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Chapter>
+
+        <section id={kosSection.id} className="px-[22px] py-24 md:px-[6vw] md:py-32">
+          {/* Reading the URL needs a boundary; the default title shows until it resolves. */}
+          <Suspense fallback={<ChapterHeading {...kosSection} />}>
+            <KosHeading />
+          </Suspense>
+          {/* The live list and its states arrive with KosSection. */}
+          <div className="mt-14 grid min-h-64 place-items-center border border-dashed border-line text-sm text-olive">
+            Daftar kos dari API
+          </div>
+          <p className="mt-6 text-xs text-olive">{kosSection.note}</p>
+        </section>
+
+        <Chapter {...survei} align="right" />
+
+        <Chapter {...dikelola}>
+          <ul className="mt-9 flex flex-wrap gap-2.5 border-t border-white/30 pt-6">
+            {dikelola.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-white/50 px-4 py-2 text-[10px] uppercase tracking-[0.14em]"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </Chapter>
+
+        <section
+          id={kota.id}
+          className="bg-night px-[22px] py-24 text-snow md:px-[6vw] md:py-32"
+        >
+          <ChapterHeading {...kota} />
+          <div className="mt-16 grid gap-14 md:grid-cols-2 md:gap-[6vw]">
+            <div>
+              <h3 className="eyebrow border-b border-white/25 pb-4">{kota.areasTitle}</h3>
+              <ul>
+                {kota.areas.map((area) => (
+                  <li
+                    key={area}
+                    className="display border-b border-white/25 py-3 text-[clamp(26px,2.6vw,38px)]"
+                  >
+                    {area}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="eyebrow border-b border-white/25 pb-4">{kota.campusTitle}</h3>
+              <ul>
+                {kota.campuses.map((campus) => (
+                  <li
+                    key={campus.name}
+                    className="flex items-baseline justify-between gap-4 border-b border-white/25 py-3"
+                  >
+                    <span className="display text-[clamp(26px,2.6vw,38px)]">{campus.name}</span>
+                    <span className="text-[10px] uppercase tracking-[0.16em] text-white/70">
+                      {campus.city}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <Chapter
+          {...info}
+          aside={
+            <div className="bg-night/90 p-8 text-snow">
+              {/* The multi-step form replaces this block. */}
+              <p className="eyebrow border-b border-white/25 pb-3">Form info kos</p>
+              <p className="mt-6 min-h-40 text-sm text-white/70">Form multi-step</p>
+              <p className="mt-6 text-[11px] leading-relaxed text-white/70">{disclaimer}</p>
+            </div>
+          }
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
       </main>
-    </div>
+      <SiteFooter />
+    </>
   );
 }

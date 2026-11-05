@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #1e211d;
+  --paper: #f1eee7;
+  --chalk: #fbfaf6;
+  --clay: #8d4f36;
+  --olive: #626852;
+  --line: rgba(30, 33, 29, 0.18);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --ink: #eceae3;
+  --paper: #161915;
+  --chalk: #20241f;
+  --clay: #d59a7d;
+  --olive: #aeb49a;
+  --line: rgba(236, 234, 227, 0.18);
+  color-scheme: dark;
+}
+
+@theme {
+  --breakpoint-md: 50.0625rem;
+  --breakpoint-lg: 75rem;
+  /* Photo chapters and the footer stay dark in both themes. */
+  --color-night: #1e211d;
+  --color-snow: #fbfaf6;
+  --color-gold: #d9b273;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-chalk: var(--chalk);
+  --color-clay: var(--clay);
+  --color-olive: var(--olive);
+  --color-line: var(--line);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-dm-sans);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: clip;
+}
+
+@layer components {
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+
+  /* Circle grows to fill the pill on hover, as on the Loam House buttons. */
+  .pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 20px 0 50px;
+    border: 1px solid color-mix(in srgb, currentColor 55%, transparent);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+
+  .pill::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(20, 22, 18, 0.65);
+    transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .pill::after {
+    content: "↗";
+    position: absolute;
+    left: 4px;
+    width: 34px;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .pill > span {
+    position: relative;
+  }
+
+  .pill:hover {
+    color: #fff;
+  }
+
+  .pill:hover::before {
+    width: calc(100% - 8px);
+  }
+
+  .field-line {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(251, 250, 246, 0.45);
+    background: transparent;
+    font-size: 15px;
+  }
+
+  .field-line::placeholder {
+    color: rgba(251, 250, 246, 0.55);
+  }
+
+  .field-line:focus {
+    border-color: var(--color-gold);
+    outline: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .pill::before {
+    transition: none;
+  }
 }
