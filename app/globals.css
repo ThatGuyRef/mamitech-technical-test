@@ -168,6 +168,27 @@ body {
       padding-bottom: 0;
     }
   }
+
+  /* Stays above every page layer until the first paint is ready. Hides itself if JS never runs. */
+  .curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    animation: curtain-failsafe 0.01s 7s forwards;
+  }
+
+  .kos-card {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+      opacity 0.8s ease-out,
+      translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .kos-card.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 html:has(.picker[open]) {
@@ -181,13 +202,29 @@ html:has(.picker[open]) {
   }
 }
 
+@keyframes curtain-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pill,
-  .pill::before {
+  .pill::before,
+  .kos-card {
     transition: none;
+  }
+
+  .kos-card {
+    opacity: 1;
+    translate: 0 0;
   }
 
   .picker[open] {
     animation: none;
+  }
+
+  .curtain {
+    display: none;
   }
 }

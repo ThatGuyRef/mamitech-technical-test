@@ -15,8 +15,12 @@ export function ChapterLabel({
 }: Pick<HeadingProps, "number" | "label">) {
   return (
     <>
-      <p className="display text-[clamp(36px,3.6vw,52px)] opacity-80">{number}</p>
-      <p className="mt-1 text-[9px] uppercase tracking-[0.22em] opacity-80">{label}</p>
+      <p data-number className="display text-[clamp(36px,3.6vw,52px)] opacity-80">
+        {number}
+      </p>
+      <p data-number className="mt-1 text-[9px] uppercase tracking-[0.22em] opacity-80">
+        {label}
+      </p>
     </>
   );
 }
@@ -32,8 +36,10 @@ export function ChapterHeading({
   return (
     <>
       <ChapterLabel number={number} label={label} />
-      <p className="eyebrow mt-9 inline-block border-b border-current/40 pb-3">{eyebrow}</p>
-      <h2 className="display mt-7 text-[clamp(46px,7vw,112px)]">
+      <p data-eyebrow className="eyebrow mt-9 inline-block border-b border-current/40 pb-3">
+        {eyebrow}
+      </p>
+      <h2 data-lines className="display mt-7 text-[clamp(46px,7vw,112px)]">
         {title}
         {/* The padding keeps descenders and italic overhang from being clipped. */}
         <em
@@ -72,9 +78,13 @@ export function Chapter({
   return (
     <section
       id={id}
-      className="relative isolate flex min-h-svh flex-col justify-center bg-night px-[22px] pt-28 pb-16 text-white md:px-[6vw]"
+      data-chapter={aside ? "hold" : "mirror"}
+      data-align={align}
+      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden bg-night px-[22px] pt-28 pb-16 text-white md:px-[6vw]"
     >
-      <Image src={image} alt="" fill sizes="100vw" className="-z-20 object-cover" />
+      <div data-media className="absolute inset-0 -z-20">
+        <Image src={image} alt="" fill sizes="100vw" className="object-cover" />
+      </div>
       <div
         aria-hidden
         className={`absolute inset-0 -z-10 from-black/75 to-black/60 md:to-black/25 ${
@@ -97,6 +107,7 @@ export function Chapter({
           <ChapterHeading {...heading} />
           {body && (
             <p
+              data-lede
               className={`mt-8 max-w-[48ch] text-[15px] leading-relaxed md:text-[clamp(15px,1.15vw,17px)] ${
                 align === "right" ? "ml-auto" : ""
               }`}
@@ -105,7 +116,7 @@ export function Chapter({
             </p>
           )}
         </div>
-        {aside}
+        {aside && <div data-rise>{aside}</div>}
       </div>
 
       {children}
