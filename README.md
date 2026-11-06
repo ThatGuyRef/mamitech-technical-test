@@ -3,7 +3,7 @@
 Frontend technical test, built with AI assistance.
 
 - **Live site:** https://mamitech-technical-test.vercel.app/
-- **Screen recording:** _add Google Drive link_
+- **Screen recording:** https://drive.google.com/drive/folders/1ST3TcPzLUOZHda2A0AGUGpTqpXvBuo4m?usp=sharing
 
 > A technical test only. Not affiliated with Mamikos. The form is a demo, so please do not enter real personal data.
 
