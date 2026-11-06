@@ -3,9 +3,29 @@
 Frontend technical test, built with AI assistance.
 
 - **Live site:** https://mamitech-technical-test.vercel.app/
-- **Screen recording:** https://drive.google.com/drive/folders/1ST3TcPzLUOZHda2A0AGUGpTqpXvBuo4m?usp=sharing
+- **Screen recording:** https://drive.google.com/drive/folders/1ST3TcPzLUOZHda2A0AGUGpTqpXvBuo4m?usp=sharing ([timeline](#screen-recording))
 
 > A technical test only. Not affiliated with Mamikos. The form is a demo, so please do not enter real personal data.
+
+## Screen recording
+
+[Watch on Google Drive](https://drive.google.com/drive/folders/1ST3TcPzLUOZHda2A0AGUGpTqpXvBuo4m?usp=sharing) · 3h 12m
+
+One continuous session. About 2.5 minutes of Finder file browsing around the 36-minute mark were cut; nothing else was edited.
+
+| Time | What happens |
+| --- | --- |
+| 0:00:00 | Read the test brief and plan the build in PRD.md |
+| 0:22:00 | Write DESIGN.md from the Loam House reference; define the API contract and request states in PRD.md |
+| 0:42:00 | Set up agent context files and check Mamikos for content |
+| 0:47:00 | Step 1: scaffold Next.js and clean up the template |
+| 1:20:00 | Step 2: Mamikos copy, kos snapshot (`data/kos.ts`), stock photos |
+| 1:30:00 | Step 3: `GET /api/items` and `POST /api/subscribe` with Vitest tests, checked with curl |
+| 1:52:00 | Step 4: homepage layout (header, hero, kos cards, footer), dark mode, keyword heading |
+| 2:04:00 | Step 5: load listings from the API with loading, error, empty, and success states |
+| 2:30:00 | Step 6: multi-step subscribe form with all submit states |
+| 2:53:00 | Step 7: Loam House styling and GSAP scroll animations |
+| 3:00:00 | Push to GitHub, deploy to Vercel, test the live site |
 
 ## What was cloned
 
